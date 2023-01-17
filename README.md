@@ -3,8 +3,8 @@
 
 # 二、使用须知
 
-## AILabRandomGenerateSignInRecords.py
-### 作用及实现规则
+## 2.1 AILabRandomGenerateSignInRecords.py
+### 2.1.1 作用及实现规则
 这个代码实现了一个根据下面的规则，自动生成签到记录表的功能：
 
 1、时间范围为：20xx年x月x日-20xx年x月x日，换句话讲是从开学到期末
@@ -17,12 +17,27 @@
 
 5、签到时间随机生成后，再在3.5到4小时之间随机取一个时间点作为签退时间
 
-### 使用方法
+### 2.1.2 使用方法
 需要在和代码相同目录下，放一份表格，包括“名字、学号、班级”
 
-## AutomaticallyRegisterForVPNAndGetClash.py
-### 作用及实现规则
+## 2.2 AutomaticallyRegisterForVPNAndGetClash.py
+### 2.2.1 作用及实现规则
 这个代码实现了自动注册一个VPN账号，并自动登陆，获取3天免费套餐，然后自动返回一个clash url链接的功能
 
-### 使用方法
+### 2.2.2 使用方法
 直接运行，见控制台输出
+
+### 2.2.3 报错解决办法
+
+安装 lxml 库，可以通过以下命令来安装：
+
+```
+pip install lxml
+```
+
+或者
+
+```
+pip3 install lxml
+```
+
