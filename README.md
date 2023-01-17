@@ -60,3 +60,20 @@ _sidebar.md 自动生成器
 ### 2.3.2 使用方法
 调用generate_sidebar("路径/路径")方法，传入需要生成 _sidebar.md 的目录。
 目录下文件名命名规则：”readme.md“、以及“第x章-笔记章节标题”
+
+## 2.4 MarkdownImageCodeModifier.py
+Markdown 图片代码修改器
+### 2.4.1 作用及实现规则
+由于 docsify 无法识别图片
+
+```markdown
+<img src="图表/v2-530c9d4478398718c15632b9aa025c36_r.jpg" alt="preview" style="zoom: 67%;" />
+```
+
+这种格式的代码，只能识别
+
+```markdown
+![image](图表/v2-530c9d4478398718c15632b9aa025c36_r.jpg)
+```
+
+这种格式的，而人工去修改工作量很大，所以实现了这个程序，扫描指定目录下的所有markdown，统一修改
