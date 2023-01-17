@@ -41,3 +41,22 @@ pip install lxml
 pip3 install lxml
 ```
 
+## 2.3 SidebarGenerator.py
+_sidebar.md 自动生成器
+### 2.3.1 作用及实现规则
+读取指定路径下的所有文件名，不包括文件名的后缀，并在该路径下生成一份markdown文档，文档名为_sidebar.md。
+
+其中所读取的文件名，除了readme，其他文件名是有规律的，一般为开头为“第x章-”，其中x是阿拉伯数字，生成器会根据阿拉伯数字进行排序，如果文件名不符合"第x章"的格式，则会被排在最后，然后再按排序，生成文档_sidebar.md的内容，文档内容为：
+
+```markdown
+* [文件名1](/Document/BasisOfComputerEngineering/DataStructure/文件名1.md)
+* [文件名2](/Document/BasisOfComputerEngineering/DataStructure/文件名2.md)
+* [文件名3](/Document/BasisOfComputerEngineering/DataStructure/文件名3.md)
+```
+
+以此类推，如果存在文件名为readme的文件，那么文件名1一定为readme，之后的文件名按照读取排序
+在生成_sidebar.md前，先判断文件路径下是否存在_sidebar.md，若已存在，则结束程序
+
+### 2.3.2 使用方法
+调用generate_sidebar("路径/路径")方法，传入需要生成 _sidebar.md 的目录。
+目录下文件名命名规则：”readme.md“、以及“第x章-笔记章节标题”
