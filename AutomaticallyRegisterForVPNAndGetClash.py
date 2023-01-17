@@ -4,8 +4,13 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+# 如果地址失效，请发送邮件到 fastlink.ws@email.com 获取最新不用翻墙的域名
+vpn_url = 'http://www.fastlink.pro'
+# 备用
+# vpn_url = 'http://www.fastlink.so'
+
 # 注册请求的url
-registration_request_url = 'http://www.fastlink.pro/auth/register'
+registration_request_url = vpn_url + '/auth/register'
 
 # 使用时间戳创建email和name
 timestamp = str(int(time.time()))
@@ -44,7 +49,7 @@ else:
     print("注册失败！")
 
 # 登录请求的url
-login_request_url = 'http://www.fastlink.pro/auth/login'
+login_request_url = vpn_url + '/auth/login'
 
 # 组装登录数据
 login_data = {
@@ -62,7 +67,7 @@ print("登录结果:" + json.dumps(login_response.json(), ensure_ascii=False))
 cookies = login_response.cookies
 
 # 访问需要登录后才能访问的页面
-shop_page_url = 'http://www.fastlink.pro/user/shop'
+shop_page_url = vpn_url + '/user/shop'
 response = requests.get(shop_page_url, cookies=cookies)
 
 #使用beautifulsoup解析页面
@@ -94,7 +99,7 @@ if update_coupon:
 else:
     print("验证优惠码的按钮不存在")
 
-coupon_check_url = 'http://www.fastlink.pro/user/coupon_check'
+coupon_check_url = vpn_url + '/user/coupon_check'
 
 data = {'ret': 1, 'name': '3天免费体验活动', 'credit': 100, 'onetime': 1, 'shop': '3', 'total': '0元'}
 
@@ -107,7 +112,7 @@ if response.status_code == 200:
 else:
     print("coupon_check请求失败")
 
-purchase_url = 'http://www.fastlink.pro/user/payment/purchase'
+purchase_url = vpn_url + '/user/payment/purchase'
 
 data = {'amount': 0}
 response = requests.post(purchase_url, cookies=cookies, data=data)
@@ -119,7 +124,7 @@ else:
     print("coupon_check请求失败")
 
 # 购买请求的url
-buy_url = 'http://www.fastlink.pro/user/buy'
+buy_url = vpn_url + '/user/buy'
 
 data = {'coupon': '599_f3cZ8bzm', 'shop': '3', 'autorenew': '0', 'disableothers': '1'}
 
@@ -133,7 +138,7 @@ else:
     print("Error")
 
 # 访问需要登录后才能访问的页面
-user_page_url = 'http://www.fastlink.pro/user'
+user_page_url = vpn_url + '/user'
 response = requests.get(user_page_url, cookies=cookies)
 soup_user_page = BeautifulSoup(response.text, 'lxml')
 
