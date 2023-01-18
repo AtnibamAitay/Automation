@@ -1,8 +1,6 @@
 import os
 import re
 
-# path = "路径/路径"
-
 def markdown_img_code_modifier(path):
     for root, dirs, files in os.walk(path):
         for file in files:

@@ -23,5 +23,6 @@ def generate_sidebar(path):
     with open(os.path.join(path, "_sidebar.md"), "w") as f:
         f.write(content)
 
-
-generate_sidebar("A:/始于不足见，终于不可及/学习/编程/13.计算机通识/数据结构/2.Java")
+# 示例用法
+# path = r"A:\始于不足见，终于不可及\学习\编程\1.Java\1.Java 开发\1.基础语法"
+# generate_sidebar(path)
