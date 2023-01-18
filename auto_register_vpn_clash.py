@@ -1,6 +1,7 @@
 import json
 import time
 import requests
+import pyperclip
 from bs4 import BeautifulSoup
 import re
 
@@ -153,3 +154,6 @@ if match:
     print("clash url：" + match.group(1))
 else:
     print("匹配失败")
+
+pyperclip.copy(match.group(1))
+print("clash url 已自动复制，可以直接退出了。")
