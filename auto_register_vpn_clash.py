@@ -5,43 +5,91 @@ import pyperclip
 from bs4 import BeautifulSoup
 import re
 
-# 如果地址失效，请发送邮件到 fastlink.ws@email.com 获取最新不用翻墙的域名
-vpn_url = 'http://www.fastlink.pro'
+# 定义变量
+# 用来薅羊毛的vpn
+vpn_url = 'http://www.fastlink.pro'        # 如果地址失效，请发送邮件到 fastlink.ws@email.com 获取不用翻墙的域名
 # 备用
 # vpn_url = 'http://www.fastlink.so'
+
+# 使用时间戳创建email和name
+timestamp = str(int(time.time()))
+email = timestamp + "@snapmail.cc"
+name = email
+emailcode = ""
 
 # 注册请求的url
 registration_request_url = vpn_url + '/auth/register'
 
-# 使用时间戳创建email和name
-timestamp = str(int(time.time()))
-email = timestamp + "@qq.com"
-username = email
+print("注册VPN使用的邮箱为：" + email)
 
 # 使用时间戳创建passwd和repasswd
 password = timestamp
 repassword = password
 register_code = "clashw"
 
+# 获取验证码
+url = vpn_url + "/auth/send"
+data = {"email": email}
+
+response = requests.post(url, data=data)
+print("收到返回信息：" + response.text)
+
+# 记录请求次数
+count = 1
+
+while count <= 3:
+    # 获取当前时间戳
+    # timestamp = str(int(time.time()))
+    # 拼接请求地址
+    url = "https://www.snapmail.cc/emailList/" + email
+    # 发送get请求
+    response = requests.get(url)
+    # 解析json数据
+    data = json.loads(response.text)
+    # 判断邮件是否收到
+    if "error" in data and len(data) == 1:
+        if count == 3:
+            print("三次请求后仍未收到邮件，程序结束，建议重试")
+            exit()
+        else:
+            print("第" + str(count) + "次刷新邮件列表，未收到邮件，12秒后重试")
+            time.sleep(12)
+            count += 1
+            continue
+    elif "html" in data[0]:
+        # 在html中寻找六位数字
+        match = re.search(
+            r'<span style="font-family: \'Nunito\', Arial, Verdana, Tahoma, Geneva, sans-serif; color: #ffffff; font-size: 20px; line-height: 30px; text-decoration: none; white-space: nowrap; font-weight: 600;">(\d{6})</span>',
+            data[0]["html"])
+        if match:
+            emailcode = match.group(1)
+            print("收到验证码为：" + match.group(1))
+            break
+        else:
+            print("未收到验证码")
+            break
+    else:
+        print("邮件信息有误")
+        break
+
 # 组装发送的json数据
 registration_data = {
     "email": email,
-    "username": username,
+    "name": name,
     "passwd": password,
     "repasswd": repassword,
-    "code": register_code
+    "code": register_code,
+    "emailcode": emailcode
 }
 
 # 打印发送的json数据
-print("发送的json数据:")
-print(json.dumps(registration_data, ensure_ascii=False))
+print("发送的json数据:" + json.dumps(registration_data, ensure_ascii=False))
 
 # 发送post请求
 response = requests.post(registration_request_url, json=registration_data)
 
 # 打印接收到的json数据
-print("接收到的json数据:")
-print(json.dumps(response.json(), ensure_ascii=False))
+print("接收到的json数据:" + json.dumps(response.json(), ensure_ascii=False))
 
 # 判断是否注册成功
 if response.status_code == 200 and response.json()["ret"] == 1:
@@ -71,10 +119,10 @@ cookies = login_response.cookies
 shop_page_url = vpn_url + '/user/shop'
 response = requests.get(shop_page_url, cookies=cookies)
 
-#使用beautifulsoup解析页面
+# 使用beautifulsoup解析页面
 soup = BeautifulSoup(response.text, 'lxml')
 
-#执行相应的操作
+# 执行相应的操作
 subscribe_plan = soup.select_one('.pricing-cta')
 if subscribe_plan:
     subscribe_plan.attrs['onclick'] = "subscribePlan('plan_5');"
@@ -105,7 +153,6 @@ coupon_check_url = vpn_url + '/user/coupon_check'
 data = {'ret': 1, 'name': '3天免费体验活动', 'credit': 100, 'onetime': 1, 'shop': '3', 'total': '0元'}
 
 response = requests.post(coupon_check_url, cookies=cookies, json=data)
-
 
 if response.status_code == 200:
     # get the json from the response
