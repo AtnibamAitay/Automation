@@ -11,18 +11,18 @@ def generate_sidebar(path):
     # 按照章节顺序进行排序
     file_names = sorted(file_names, key=lambda x: int(re.search('(?<=第)\d+(?=章)', x).group(0)) if x.startswith("第") else float('inf'))
     # 将 readme 文件放到第一位
-    if 'readme.md' in file_names:
-        file_names.remove('readme.md')
-        file_names.insert(0, 'readme.md')
+    if 'README.md' in file_names:
+        file_names.remove('README.md')
+        file_names.insert(0, 'README.md')
     # 构造文档内容
     content = ""
     for file in file_names:
         file_name = file.replace(".md", "")
-        content += f"* [{file_name}](/Document/BasisOfComputerEngineering/DataStructure/{file})\n"
+        content += f"* [{file_name}](/Document/Programming/Python/BasicGrammar/{file})\n"
     # 在指定路径下生成 _sidebar.md 文档
     with open(os.path.join(path, "_sidebar.md"), "w") as f:
         f.write(content)
 
 # 示例用法
-# path = r"A:\始于不足见，终于不可及\学习\编程\1.Java\1.Java 开发\1.基础语法"
-# generate_sidebar(path)
+path = r"A:\始于不足见，终于不可及\学习\编程\3.Python\1.基础语法"
+generate_sidebar(path)

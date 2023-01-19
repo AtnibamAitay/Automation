@@ -23,5 +23,5 @@ def rename_note_files_name(path):
                     print(f"{filename} -> {new_filename}")
 
 # 这里请输入要执行代码的路径，路径需要是包含 \ 反斜杠的
-path = r"C:\Users\Atnibam Aitay\Downloads\新建文件夹"
+path = r"A:\Project\Automation\docx"
 rename_note_files_name(path)
