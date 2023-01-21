@@ -83,13 +83,13 @@ registration_data = {
 }
 
 # 打印发送的json数据
-print("发送的json数据:" + json.dumps(registration_data, ensure_ascii=False))
+print("填写注册表单：" + json.dumps(registration_data, ensure_ascii=False))
 
 # 发送post请求
 response = requests.post(registration_request_url, json=registration_data)
 
 # 打印接收到的json数据
-print("接收到的json数据:" + json.dumps(response.json(), ensure_ascii=False))
+# print("接收到的json数据:" + json.dumps(response.json(), ensure_ascii=False))
 
 # 判断是否注册成功
 if response.status_code == 200 and response.json()["ret"] == 1:
@@ -110,7 +110,7 @@ login_data = {
 login_response = requests.post(login_request_url, json=login_data)
 
 # 打印登录结果
-print("登录结果:" + json.dumps(login_response.json(), ensure_ascii=False))
+print("登录结果：" + json.dumps(login_response.json(), ensure_ascii=False))
 
 # 获取cookies
 cookies = login_response.cookies
@@ -167,7 +167,7 @@ response = requests.post(purchase_url, cookies=cookies, data=data)
 
 if response.status_code == 200:
     # get the json from the response
-    print("支付网关处理完毕，结果为:" + json.dumps(response.json(), ensure_ascii=False))
+    print("支付网关处理完毕，结果为（默认失败）:" + json.dumps(response.json(), ensure_ascii=False))
 else:
     print("coupon_check请求失败")
 
