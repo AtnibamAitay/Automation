@@ -28,49 +28,49 @@ repassword = password
 register_code = "clashw"
 
 # 获取验证码
-url = vpn_url + "/auth/send"
-data = {"email": email}
-
-response = requests.post(url, data=data)
-print("收到返回信息：" + response.text)
-
-# 记录请求次数
-count = 1
-
-while count <= 3:
-    # 获取当前时间戳
-    # timestamp = str(int(time.time()))
-    # 拼接请求地址
-    url = "https://www.snapmail.cc/emailList/" + email
-    # 发送get请求
-    response = requests.get(url)
-    # 解析json数据
-    data = json.loads(response.text)
-    # 判断邮件是否收到
-    if "error" in data and len(data) == 1:
-        if count == 3:
-            print("三次请求后仍未收到邮件，程序结束，建议重试")
-            exit()
-        else:
-            print("第" + str(count) + "次刷新邮件列表，未收到邮件，12秒后重试")
-            time.sleep(12)
-            count += 1
-            continue
-    elif "html" in data[0]:
-        # 在html中寻找六位数字
-        match = re.search(
-            r'<span style="font-family: \'Nunito\', Arial, Verdana, Tahoma, Geneva, sans-serif; color: #ffffff; font-size: 20px; line-height: 30px; text-decoration: none; white-space: nowrap; font-weight: 600;">(\d{6})</span>',
-            data[0]["html"])
-        if match:
-            emailcode = match.group(1)
-            print("收到验证码为：" + match.group(1))
-            break
-        else:
-            print("未收到验证码")
-            break
-    else:
-        print("邮件信息有误")
-        break
+# url = vpn_url + "/auth/send"
+# data = {"email": email}
+#
+# response = requests.post(url, data=data)
+# print("收到返回信息：" + response.text)
+#
+# # 记录请求次数
+# count = 1
+#
+# while count <= 3:
+#     # 获取当前时间戳
+#     # timestamp = str(int(time.time()))
+#     # 拼接请求地址
+#     url = "https://www.snapmail.cc/emailList/" + email
+#     # 发送get请求
+#     response = requests.get(url)
+#     # 解析json数据
+#     data = json.loads(response.text)
+#     # 判断邮件是否收到
+#     if "error" in data and len(data) == 1:
+#         if count == 3:
+#             print("三次请求后仍未收到邮件，程序结束，建议重试")
+#             exit()
+#         else:
+#             print("第" + str(count) + "次刷新邮件列表，未收到邮件，12秒后重试")
+#             time.sleep(12)
+#             count += 1
+#             continue
+#     elif "html" in data[0]:
+#         # 在html中寻找六位数字
+#         match = re.search(
+#             r'<span style="font-family: \'Nunito\', Arial, Verdana, Tahoma, Geneva, sans-serif; color: #ffffff; font-size: 20px; line-height: 30px; text-decoration: none; white-space: nowrap; font-weight: 600;">(\d{6})</span>',
+#             data[0]["html"])
+#         if match:
+#             emailcode = match.group(1)
+#             print("收到验证码为：" + match.group(1))
+#             break
+#         else:
+#             print("未收到验证码")
+#             break
+#     else:
+#         print("邮件信息有误")
+#         break
 
 # 组装发送的json数据
 registration_data = {
@@ -78,7 +78,7 @@ registration_data = {
     "name": name,
     "passwd": password,
     "repasswd": repassword,
-    "code": register_code,
+    # "code": register_code,
     "emailcode": emailcode
 }
 
