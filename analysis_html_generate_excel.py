@@ -59,4 +59,4 @@ def generate_excel(html_file_path, excel_file_path):
 
 
 # 使用示例
-generate_excel('C:/Users\Atnibam Aitay/Downloads/bookmarks_2023_1_24.html', 'websites.xls')
+generate_excel('C:/Users/Atnibam Aitay/Downloads/bookmarks_2023_1_24.html', 'websites.xls')

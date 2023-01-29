@@ -3,7 +3,7 @@ import random
 import datetime
 
 # 读取member.xlsx中的内容
-members = pd.read_excel('member.xlsx')
+members = pd.read_excel('TestDocs\member.xlsx')
 
 # 判断AILabSignInRecord.xlsx是否存在，如果不存在就生成
 try:

@@ -1,7 +1,5 @@
 import os
 
-from find_and_modify_readme import find_and_modify_readme
-from markdown_img_code_modifier import markdown_img_code_modifier
 
 # 目录扫描器
 
